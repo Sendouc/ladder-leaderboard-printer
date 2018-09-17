@@ -77,7 +77,7 @@ def onevsone (df):
 
         if df.loc[x, "Unranked"] and unrank_to_be_printed:
             unrank_to_be_printed = False
-            to_be_printed.append("\n~\n\n:octheBlood: **NEW TEAMS** *(can't be challenged)*\n\n")
+            to_be_printed.append("\n~\n\n:octheBlood: **NEW PARTICIPANTS** *(can't be challenged)*\n\n")
 
         if df.loc[x, "Unranked"]:
             rank = "--"
@@ -116,8 +116,6 @@ def onevsonechamp (df):
         elif x == 45:
             to_be_printed.append("~\n\n**BRELLAS**\n\n")
 
-        discord_id = str(df.loc[x, "Discord ID"])
-
         if str(df.loc[x, "Discord ID"]) == "nan":
             to_be_printed.append(":{}:\n\n".format(df.loc[x, "Weapon"]))
         elif str(df.loc[x, "Times defended"]) == "0":
@@ -136,18 +134,14 @@ df = p.read_csv(link)
 
 # DataFrame and output is a bit different depending on which Ladder it is so different methods for each variation.
 
-while True:
-    selection = input("1 = 4v4 Ladder 2 = 1v1 Ladder 3 = 1v1 Champions 4 = Exit ")
-    if selection == "1":
-        print(fourvsfour(df))
-        break
-    elif selection == "2":
-        print(onevsone(df))
-        break
-    elif selection == "3":
-        print(onevsonechamp(df))
-        break
-    elif selection == "4":
-        break
+selection = input("1 = 4v4 Ladder 2 = 1v1 Ladder 3 = 1v1 Champions 4 = Exit ")
+if selection == "1":
+    print(fourvsfour(df))
+elif selection == "2":
+    print(onevsone(df))
+elif selection == "3":
+    print(onevsonechamp(df))
+elif selection != "4":
+    print("Invalid input. 1, 2, 3 or 4 was expected but your input was {}".format(selection))
 
 
