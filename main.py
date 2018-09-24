@@ -96,7 +96,6 @@ def onevsonechamp (df):
     # Prints the champions list. A bit different from the leaderboards.
 
     to_be_printed = []
-    unrank_to_be_printed = True
 
     for x in range(df.shape[0]):
         if x == 0:
@@ -116,7 +115,9 @@ def onevsonechamp (df):
         elif x == 45:
             to_be_printed.append("~\n\n**BRELLAS**\n\n")
 
-        if str(df.loc[x, "Discord ID"]) == "nan":
+    # Any Discord ID that is 1 is a placeholder and is excluded from the string.
+
+        if str(df.loc[x, "Discord ID"]) == "1":
             to_be_printed.append(":{}:\n\n".format(df.loc[x, "Weapon"]))
         elif str(df.loc[x, "Times defended"]) == "0":
             to_be_printed.append(":{}: <@{}>\n\n".format(df.loc[x, "Weapon"], df.loc[x, "Discord ID"]))
@@ -131,6 +132,7 @@ def onevsonechamp (df):
 
 link = input("What is the URL to the Google Docs CSV file? ")
 df = p.read_csv(link)
+df["Discord ID"] = df["Discord ID"].astype("int64")
 
 # DataFrame and output is a bit different depending on which Ladder it is so different methods for each variation.
 
